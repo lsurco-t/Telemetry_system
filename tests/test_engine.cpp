@@ -18,6 +18,7 @@ void test_engine(){
 }
 
 int main(void){
+	std::cout << "Engine test values: \n";
 	test_engine();
 	return 0;
 }
