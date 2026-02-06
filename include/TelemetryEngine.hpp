@@ -10,12 +10,23 @@
 
 class TelemetryEngine {
 	private:
+		TemperatureSensor _temp;
+		AltitudeSensor _alt;
+		VelocitySensor _vel;
+
 		std::vector<TelemetryPacket> _packets;
-		std::mutex _mtx;
+		mutable std::mutex _packetsMutex;
+		std::thread _worker;
 		std::atomic<bool> _running;
 
+		void run();
+		TelemetryPacket getLatestPacket();
+
 	public:
+		TelemetryEngine();
+		~TelemetryEngine();
 		void start();
 		void stop();
-		void getLatestPacket();
+		std::vector<TelemetryPacket> getPackets() const;
+		size_t getPacketsSize() const;
 };
