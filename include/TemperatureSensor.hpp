@@ -1,5 +1,5 @@
 #pragma once
-#include "random"
+#include <random>
 #include "Sensor.hpp"
 
 class TemperatureSensor : public Sensor {

@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(telemetry src/main.cpp)
+file(GLOB SOURCE "src/*.cpp")
+
+add_executable(telemetry ${SOURCES})
