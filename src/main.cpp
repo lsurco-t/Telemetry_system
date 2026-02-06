@@ -2,7 +2,8 @@
 #include <chrono>
 
 int main (void){
-	long timestamp = std::chrono::system_clock::now().time_since_epoch() / std::chrono::seconds(1);
+	auto now = std::chrono::system_clock::now();
+	long timestamp = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
 
 	return 0;
 }
