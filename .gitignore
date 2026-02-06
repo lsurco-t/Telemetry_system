@@ -1,2 +1,3 @@
 .vscode
 satelliteTelemetry
+tests/build_tests
