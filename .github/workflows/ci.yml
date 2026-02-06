@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build test_engine
+      run: |
+        mkdir -p build_tests
+        cd build_tests
+        g++ -std=c++17 -I../include \
+        ../tests/test_engine.cpp \
+        ../src/TelemetryEngine.cpp \
+        ../src/TemperatureSensor.cpp \
+        ../src/AltitudeSensor.cpp \
+        ../src/VelocitySensor.cpp \
+        -pthread -o test_engine
+
+    - name: Build test_sensors
+      run: |
+        mkdir -p build_tests
+        cd build_tests
+        g++ -std=c++17 -I../include \
+        ../tests/test_sensors.cpp \
+        ../src/TemperatureSensor.cpp \
+        ../src/AltitudeSensor.cpp \
+        ../src/VelocitySensor.cpp \
+        -o test_sensors
+
+    - name: Run tests
+      run: |
+        ./build_tests/test_engine
+        ./build_tests/test_sensors
+      
+
