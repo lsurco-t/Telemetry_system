@@ -31,5 +31,5 @@ class TelemetryEngine {
 		TelemetryPacket getLatestPacket();
 		size_t clearPacket();
 		std::vector<TelemetryPacket> drainPackets();
-		bool isRunning();
+		bool isRunning() const;
 };

@@ -57,8 +57,8 @@ size_t TelemetryEngine::getPacketsSize() const {
 	return _packets.size();
 }
 
-bool TelemetryEngine::isRunning(){
-	return _running;
+bool TelemetryEngine::isRunning() const{
+	return _running.load();
 }
 
 size_t TelemetryEngine::clearPacket(){
