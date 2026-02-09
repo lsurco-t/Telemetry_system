@@ -60,3 +60,17 @@ size_t TelemetryEngine::getPacketsSize() const {
 bool TelemetryEngine::isRunning(){
 	return _running;
 }
+
+size_t TelemetryEngine::clearPacket(){
+	std::lock_guard<std::mutex> lock(_packetsMutex);
+	size_t nbrPackets = _packets.size();
+	_packets.clear();
+	return nbrPackets;
+}
+
+std::vector<TelemetryPacket> TelemetryEngine::drainPackets(){
+	std::lock_guard<std::mutex> lock(_packetsMutex);
+	std::vector<TelemetryPacket> oldData;
+	oldData.swap(_packets);
+	return oldData;
+}

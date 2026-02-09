@@ -29,5 +29,7 @@ class TelemetryEngine {
 		std::vector<TelemetryPacket> getPackets() const;
 		size_t getPacketsSize() const;
 		TelemetryPacket getLatestPacket();
+		size_t clearPacket();
+		std::vector<TelemetryPacket> drainPackets();
 		bool isRunning();
 };
