@@ -1,9 +1,10 @@
 #include <iostream>
-#include <chrono>
+#include "CLIController.hpp"
 
 int main (void){
-	auto now = std::chrono::system_clock::now();
-	long timestamp = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
-
+	TelemetryEngine engine;
+	Logger logger;
+	CLIController cli(engine, logger);
+	cli.runCLI();
 	return 0;
 }
