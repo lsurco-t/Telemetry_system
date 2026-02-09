@@ -20,7 +20,6 @@ class TelemetryEngine {
 		std::atomic<bool> _running;
 
 		void run();
-		TelemetryPacket getLatestPacket();
 
 	public:
 		TelemetryEngine();
@@ -29,4 +28,6 @@ class TelemetryEngine {
 		void stop();
 		std::vector<TelemetryPacket> getPackets() const;
 		size_t getPacketsSize() const;
+		TelemetryPacket getLatestPacket();
+		bool isRunning();
 };
