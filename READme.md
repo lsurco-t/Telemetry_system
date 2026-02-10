@@ -1,4 +1,4 @@
-# Satellite Telemetry System (C++)
+# Telemetry System (C++)
 
 ![CI](https://github.com/lsurco-t/Telemetry_system/workflows/CI/badge.svg)
 
