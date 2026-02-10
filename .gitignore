@@ -1,3 +1,4 @@
 .vscode
-satelliteTelemetry
+telemetry_system
 tests/build_tests
+obj
