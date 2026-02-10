@@ -12,18 +12,19 @@ g++ -std=c++17 -I../../include \
     ../../src/TemperatureSensor.cpp \
     ../../src/AltitudeSensor.cpp \
     ../../src/VelocitySensor.cpp \
-    -pthread -o test1
+    -pthread -o test_engine
 
 g++ -std=c++17 -I../../include \
     ../test_sensors.cpp \
     ../../src/TemperatureSensor.cpp \
     ../../src/AltitudeSensor.cpp \
     ../../src/VelocitySensor.cpp \
-    -pthread -o test2
+    -pthread -o test_sensors
 
 # Run tests
-./test1
-./test2
+./test_engine
+./test_sensors
+
 
 echo "All tests passed!"
 
