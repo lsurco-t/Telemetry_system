@@ -6,8 +6,8 @@
 #include <sstream>
 #include <iomanip>
 
-CLIController::CLIController(TelemetryEngine& Engine, Logger& logger) 
-	: _engine(Engine), _logger(logger){}
+CLIController::CLIController(TelemetryEngine& Engine) 
+	: _engine(Engine){}
 
 void CLIController::runCLI(){
 	std::string line;
@@ -68,7 +68,7 @@ void CLIController::stopTelemetry() const {
 		return;
 	}
 	_engine.stop();
-	std::cout << "Telemetry system stopped\n";
+	std::cout << "Telemetry system stopped.\n";
 }
 
 void CLIController::statusTelemetry() const {
@@ -86,9 +86,9 @@ void CLIController::latestPacket() const {
 	}
 	TelemetryPacket latestPacket = _engine.getLatestPacket();
 	std::cout << "Time : " << latestPacket.timestamp << "\n";
-	std::cout << "Temp : " << latestPacket.temperature << "\n";
-	std::cout << "Alt : " << latestPacket.altitude << "\n";
-	std::cout << "Vel : " << latestPacket.velocity << "\n";
+	std::cout << "Temp : " << std::fixed << std::setprecision(2) << latestPacket.temperature << "\n";
+	std::cout << "Alt : " << std::fixed << std::setprecision(2) << latestPacket.altitude << "\n";
+	std::cout << "Vel : " << std::fixed << std::setprecision(2) << latestPacket.velocity << "\n";
 }
 
 void CLIController::statsBuffer() const {
@@ -107,15 +107,15 @@ void CLIController::statsBuffer() const {
 		minVel = std::min(minVel, packet.velocity);
 	}
 	double avgTemp = sum / sizePackets;
-	std::cout << "Avg Temp: " << avgTemp << "\n";
-	std::cout << "Max Alt: " << maxAlt << "\n";
-	std::cout << "Min Vel: " << minVel << "\n";
+	std::cout << "Avg Temp: " << std::fixed << std::setprecision(2) << avgTemp << "\n";
+	std::cout << "Max Alt: " << std::fixed << std::setprecision(2) << maxAlt << "\n";
+	std::cout << "Min Vel: " << std::fixed << std::setprecision(2) << minVel << "\n";
 	std::cout << "Packets: " << sizePackets << "\n";
 }
 
 void CLIController::clearBuffer() {
 	size_t removed = _engine.clearPacket();
-	std::cout << "Cleared " << removed << " packets\n";
+	std::cout << "Cleared " << removed << " packets.\n";
 }
 
 void CLIController::exportFile(const std::string& arg) {
@@ -133,7 +133,7 @@ void CLIController::exportFile(const std::string& arg) {
 	}
 	std::ofstream out(filename);
 	if (!out){
-		std::cerr << "Error: Could not create file" << filename << "\n";
+		std::cerr << "Error: Could not create file" << filename << ".\n";
 		return;
 	}
 	out << "Temperature, Altitude, Velocity, Timestamp\n";
@@ -143,7 +143,7 @@ void CLIController::exportFile(const std::string& arg) {
 			<< data.velocity << ","
 			<< data.timestamp << "\n";
 	}
-	std::cout << "Data succesfully exported to: " << filename << "\n";
+	std::cout << "Data succesfully exported to: " << filename << ".\n";
 }
 
 void CLIController::exitCLI(){
