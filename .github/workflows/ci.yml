@@ -12,6 +12,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Install Valgrind
+      run: sudo apt-get update && sudo apt-get install -y valgrind
     - name: Build test_engine
       run: |
         mkdir -p build_tests
@@ -35,9 +38,17 @@ jobs:
         ../src/VelocitySensor.cpp \
         -o test_sensors
 
-    - name: Run tests
+    - name: Run unit tests
       run: |
         ./build_tests/test_engine
         ./build_tests/test_sensors
-      
+    
+    - name: Build main application
+      run: make
+    
+    - name: Run thread safety test
+      run: |
+        cd tests
+        chmod +x test_concurrency.sh
+        ./test_concurrency.sh
 
