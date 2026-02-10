@@ -3,8 +3,7 @@
 
 int main (void){
 	TelemetryEngine engine;
-	Logger logger;
-	CLIController cli(engine, logger);
+	CLIController cli(engine);
 	cli.runCLI();
 	return 0;
 }
