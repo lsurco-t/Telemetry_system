@@ -1,6 +1,5 @@
 #pragma once
 #include "TelemetryEngine.hpp"
-#include "Logger.hpp"
 #include "utils.hpp"
 #include <string>
 #include <chrono>
@@ -8,7 +7,6 @@
 class CLIController {
 	private:
 		TelemetryEngine& _engine;
-		Logger& _logger;
 		
 		void startTelemetry() const;
 		void stopTelemetry() const;
@@ -22,7 +20,7 @@ class CLIController {
 		void printHelp();
 		
 	public:
-		CLIController(TelemetryEngine& Engine, Logger& logger);
+		CLIController(TelemetryEngine& Engine);
 		CLIController(const CLIController& other) = delete;
 		CLIController& operator=(const CLIController& other) = delete;
 		void runCLI();	
