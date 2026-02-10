@@ -1,6 +1,6 @@
 NAME = satelliteTelemetry
 CXX = c++
-CXXFLAGS = -Wall -Werror -Wextra
+CXXFLAGS = -std=c++17 -Wall -Werror -Wextra 
 SRC = $(wildcard src/*.cpp)
 INCLUDE = include
 OBJ = $(SRC:.cpp=.o)
