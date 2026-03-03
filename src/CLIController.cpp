@@ -6,13 +6,16 @@
 #include <sstream>
 #include <iomanip>
 
+constexpr std::string_view yellow = "\033[33m";
+constexpr std::string_view reset  = "\033[0m";
+
 CLIController::CLIController(TelemetryEngine& Engine) 
 	: _engine(Engine){}
 
 void CLIController::runCLI(){
 	std::string line;
 	printHelp();
-	while (std::cout << "Telemetry> ", std::getline(std::cin, line)){
+	while (std::cout << yellow << "Telemetry> " << reset, std::getline(std::cin, line)){
 		utils::trim(line);
 		if (line.empty()){
 			continue;
