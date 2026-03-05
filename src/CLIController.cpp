@@ -5,17 +5,28 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <csignal>
 
 constexpr std::string_view yellow = "\033[33m";
 constexpr std::string_view reset  = "\033[0m";
 
+static volatile sig_atomic_t signalRunning = 1;
+
+static void signalHandler (int sig){
+	(void) sig;
+	signalRunning = 0;
+}
+
 CLIController::CLIController(TelemetryEngine& Engine) 
-	: _engine(Engine){}
+	: _engine(Engine){
+		signal(SIGINT, SIG_IGN);
+		signal(SIGTERM, signalHandler);
+}
 
 void CLIController::runCLI(){
 	std::string line;
 	printHelp();
-	while (std::cout << yellow << "Telemetry> " << reset, std::getline(std::cin, line)){
+	while (std::cout << yellow << "Telemetry> " << reset, signalRunning && std::getline(std::cin, line)){
 		utils::trim(line);
 		if (line.empty()){
 			continue;
@@ -38,7 +49,7 @@ void CLIController::runCLI(){
 		} else if (cmd == "exit"){
 			exitCLI();
 			break;
-		} else {
+		} else if (cmd == "help"){
 			printHelp();
 		}
 	}
@@ -153,5 +164,10 @@ void CLIController::exitCLI(){
 	if (_engine.isRunning()){
 		_engine.stop();
 	}
+	exportFile("");
 	std::cout << "Closing program ...\n";
+}
+
+CLIController::~CLIController(){
+	exitCLI();
 }

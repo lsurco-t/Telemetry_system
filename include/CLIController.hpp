@@ -23,5 +23,6 @@ class CLIController {
 		CLIController(TelemetryEngine& Engine);
 		CLIController(const CLIController& other) = delete;
 		CLIController& operator=(const CLIController& other) = delete;
+		~CLIController();
 		void runCLI();	
 };	
