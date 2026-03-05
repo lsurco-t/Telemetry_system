@@ -47,7 +47,6 @@ void CLIController::runCLI(){
 		} else if (cmd == "export"){
 			exportFile(arg);
 		} else if (cmd == "exit"){
-			exitCLI();
 			break;
 		} else if (cmd == "help"){
 			printHelp();
